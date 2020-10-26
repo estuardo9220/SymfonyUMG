@@ -1,0 +1,42 @@
+BackendBundle\Entity\Seguidor:
+    type: entity
+    table: seguidores
+    indexes:
+        fk_seguidores_usuarios:
+            columns:
+                - id_usuario
+        fk_seguidores:
+            columns:
+                - usuario_seguido
+    id:
+        idSeguidor:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_seguidor
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        usuarioSeguido:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuario_seguido:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+        idUsuario:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

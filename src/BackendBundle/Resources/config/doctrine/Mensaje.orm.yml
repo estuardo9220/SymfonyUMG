@@ -1,0 +1,78 @@
+BackendBundle\Entity\Mensaje:
+    type: entity
+    table: mensajes
+    indexes:
+        fk_emisor:
+            columns:
+                - emisor
+        fk_receptor:
+            columns:
+                - receptor
+    id:
+        idMensaje:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_mensaje
+            generator:
+                strategy: IDENTITY
+    fields:
+        mensaje:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+                default: 'NULL'
+        archivo:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                default: 'NULL'
+        imagen:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                default: 'NULL'
+        estadoLeido:
+            type: string
+            nullable: true
+            length: 3
+            options:
+                fixed: false
+                default: 'NULL'
+            column: estado_leido
+        fechaEnvio:
+            type: datetime
+            nullable: true
+            options:
+                default: 'NULL'
+            column: fecha_envio
+    manyToOne:
+        emisor:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                emisor:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+        receptor:
+            targetEntity: Usuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                receptor:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

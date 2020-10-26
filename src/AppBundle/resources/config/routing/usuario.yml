@@ -1,0 +1,36 @@
+login:
+    path: /login
+    defaults: { _controller: AppBundle:Usuario:login}
+    
+
+login_check:
+    path: /login_check
+    
+    
+logout:
+    path: /logout
+    
+
+register:
+    path: /register
+    defaults: { _controller: AppBundle:Usuario:register}
+    
+
+    
+    
+user_edit:
+    path: /my-data
+    defaults: { _controller: AppBundle:Usuario:userEdit}
+    
+user_list:
+   path: /people
+   defaults: { _controller: AppBundle:Usuario:users}
+
+user_search:
+   path: /search
+   defaults: { _controller: AppBundle:Usuario:search}
+   
+   
+    
+    
+    

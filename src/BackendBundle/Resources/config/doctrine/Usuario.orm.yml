@@ -1,0 +1,83 @@
+BackendBundle\Entity\Usuario:
+    type: entity
+    table: usuarios
+    uniqueConstraints:
+        usuarios_uniques_fields:
+            columns:
+                - email
+                - alias
+    id:
+        idUsuario:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_usuario
+            generator:
+                strategy: IDENTITY
+    fields:
+        rol:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+                default: 'NULL'
+        email:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                default: 'NULL'
+        nombre:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                default: 'NULL'
+        apellido:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                default: 'NULL'
+        password:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                default: 'NULL'
+        alias:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                default: 'NULL'
+        biografia:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                default: 'NULL'
+        estado:
+            type: string
+            nullable: true
+            length: 2
+            options:
+                fixed: false
+                default: 'NULL'
+        imagen:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                default: 'NULL'
+    lifecycleCallbacks: {  }

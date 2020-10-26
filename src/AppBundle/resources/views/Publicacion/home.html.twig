@@ -1,0 +1,193 @@
+
+
+{% extends "AppBundle:layouts:layout.html.twig" %}
+
+{% block Stylesheets %}
+            <link href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('assets/css/bootstrap.cosmo.min.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('assets/css/styles.css') }}" type="text/css" rel="stylesheet" />
+        {% endblock %}
+
+
+{% block content %}
+    
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('assets/js/custom/home.js') }}"></script>
+    {% endblock %}
+    <div class="container">
+        <div id="timeline"  class="col-lg-7 box-default  pull-left">
+            <h1 class="box-header">Publicaciones</h1>
+            <hr/>
+            <div class="box-content">
+                {% for publication in pagination %}
+                    <div class="col-lg-12 publication-item">
+                        <div class="avatar">
+                            {%if publication.idUsuario.imagen==null %}
+                                <img src="{{ asset('assets/images/default.png') }}"/>
+                            {%else%}
+                                <img src="{{ asset('uploads/users/'~publication.idUsuario.imagen) }}"/>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="publication-item-content">
+                            <p><a class="pub-name-link" href="#">
+                                    {{ publication.idUsuario.nombre }} {{ publication.idUsuario.apellido }}
+                           </a>
+                            -
+                            {{ publication.idUsuario.alias }}
+                            -
+                            <span class="pub-dates">
+                                {{ publication.fechaCreacion|date('d-m-y') }}
+                            </span>
+                            
+                            <div class="pull-right like">
+                                <span data-id="{{ publication.idPublicacion }}"
+                                class="btn-like glyphicon glyphicon-heart-empty"
+                                aria-hidden="true"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="Me gusta">
+                                </span>
+                                
+                                <span data-id="{{ publication.idPublicacion }}"
+                                class="hidden btn-unlike active glyphicon glyphicon-heart-empty"
+                                aria-hidden="true"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="Ya no me gusta">
+                                </span>
+                            </div>
+                            </p>
+                            
+                            <p>{{ publication.texto }}</p>
+                            
+                            
+                            {%if(publication.idUsuario.idUsuario is defined) and (publication.idUsuario.idUsuario == app.user.idUsuario)  %}
+                              <span data-id="{{ publication.idPublicacion }}"  class="btn-delete-pub glyphicon glyphicon-trash" aria-hidden="true"></span>  
+                             {% endif %}
+                                
+                                
+                            
+                            {% if (publication.documento is defined) and (publication.documento !=null) %}
+                            <a href="{{ asset('uploads/publications/documents/'~publication.documento) }}"
+                               class="btn-doc glyphicon glyphicon-save" area-hidden="true" target="_blank">
+                            </a>
+                            {% endif %}
+                            
+                            
+                            
+                            {% if (publication.imagen is defined) and (publication.imagen !=null) %}
+                                <span class="btn-img glyphicon glyphicon-picture" aria-hidden="true"></span>
+                                <div class="clearfix"></div>
+                                
+                            <div class="pub-image">
+                                <img src="{{ asset('uploads/publications/images/'~publication.imagen) }}"/>
+                            </div>
+                            {% endif %}
+                            
+                            
+                            
+                            <!--<div class="pull-right like">
+                                <span data-id="{{ publication.idPublicacion }}"
+                                class="btn-like glyphicon glyphicon-heart-empty"
+                                aria-hidden="true"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="Me gusta">
+                                </span>
+                            </div>-->
+                            
+                        </div>
+                        
+                        <div class="clearfix"></div>
+                        <hr/>
+                        </div>
+                        
+                    <hr/>
+                {% endfor %}
+
+                <div class="navigation">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
+        </div>
+
+        <div id="user-card" class="col-lg-4 pull-right box-default">
+            <div class="avatar">
+                <div class="avatar">
+                    {%if app.user.imagen==null %}
+                        <img src="{{ asset('assets/images/default.png') }}"/>
+                    {%else%}
+                        <img src="{{ asset('uploads/users/'~app.user.imagen) }}"/>
+                    {% endif %}
+                </div> 
+            </div>
+
+
+            <div class="name-surname">
+                <a href="#">{{ app.user.nombre }} {{ app.user.apellido }}</a>
+                <div class="clearfix">
+                    <span class="nickname">
+                        {{ app.user.alias }}
+             
+                    </span>
+                </div>
+                <div class="clearfix"> </div>
+                
+                <div class="following-data">
+                    <a href="#">
+                        <span class="label-stat">
+                            Siguiendo
+                        </span>
+                        <span class="number-stat">
+                            0
+                        </span>
+                    </a>
+                </div>
+                <div class="following-data">
+                    <a href="#">
+                        <span class="label-stat">
+                            Seguidores
+                        </span>
+                        <span class="number-stat">
+                            0
+                        </span>
+                    </a>
+                </div>
+                <div class="following-data">
+                    <a href="#">
+                        <span class="label-stat">
+                            Publicaciones
+                        </span>
+                        <span class="number-stat">
+                            0
+                        </span>
+                    </a>
+                </div>
+                <div class="following-data">
+                    <a href="#">
+                        <span class="label-stat">
+                            Likes
+                        </span>
+                        <span class="number-stat">
+                            0
+                        </span>
+                    </a>
+                </div>
+                
+            </div>
+
+            <div id="new-publication" class="col-lg-12 pull-right box-default">
+                <h4 class="box-header">CREAR PUBLICACION</h4>
+                <hr/>
+                {{ form_start(form, {action: '', 'method': 'POST'}) }}
+                {{ form_end(form) }}
+
+
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

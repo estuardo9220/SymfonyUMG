@@ -1,0 +1,71 @@
+{% extends "AppBundle:layouts:layout.html.twig" %}
+{% block content %}
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('assets/js/custom/users.js') }}"></script>
+    {% endblock %}
+
+<div class="container"> 
+ <div class="col-lg-14 box-form"> 
+ <h1>Personas</h1>
+ <div class="count">
+ <span class="label label-primary">
+Total de personas: {{ pagination.getTotalItemCount }}
+  </span>
+ </div>
+
+ <hr/>
+ 
+ 
+
+  <div class="box-content box-users">
+  {% for user in pagination %}
+    <div class="col-lg-12 user-item">
+    <div class="avatar">
+ {%if user.imagen == null %}
+ <img src=" {{ asset('assets/images/default.png')}}" />
+ {%else%}
+<img src="{{ asset('uploads/users/'~user.imagen)}}"/>
+{%endif%}
+
+</div>
+
+<div class="user-item-content">
+    <p>{{user.nombre}} {{user.apellido}} - {{user.alias}}</p>
+<p> {{user.biografia}}</p><br/>
+
+
+</div>
+
+
+
+
+{% if app.user.idUsuario!=user.idUsuario %}
+    <div class="pull-right buttonns-following">
+        <button class="btn btn-sm btn-success btn-follow" data-followed="{{user.idUsuario}}">
+            <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+            seguir
+        </button>
+    </div>
+        <div class="pull-right buttonns-following">
+        <button class="btn btn-sm btn-danger btn-follow" data-followed="{{user.idUsuario}}">
+            <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+            dejar de seguir
+        </button>
+    </div>
+{% endif %}
+
+<div class="clearfix"></div>
+<hr/>
+</div>
+{% endfor %}
+ </div> 
+
+ <div class="navigation"> 
+{{ knp_pagination_render(pagination)}}
+</div>
+<div class="clearfix"></div>
+ </div> 
+</div> 
+{% endblock %}{# empty Twig template #}
+

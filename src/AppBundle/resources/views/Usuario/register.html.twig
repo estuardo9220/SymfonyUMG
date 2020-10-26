@@ -1,0 +1,13 @@
+{% extends "AppBundle:layouts:layout.html.twig" %}
+{% block content %}
+<div class="container">
+ <div class="box-form col-lg-7">  
+    
+<h1>REGISTRARSE</h1>
+</hr>
+{{ form_start(form,{'action':'','method':'POST'}) }}
+{{ form_errors(form) }}
+{{ form_end(form) }}
+ </div>
+ </div>
+{% endblock %}
